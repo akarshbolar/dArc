@@ -7,8 +7,6 @@ import { HomeComponent } from './home/home.component';
 import { HomeModule } from './home/home.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
 const routes: Routes = [
   {
     path: '',
@@ -19,8 +17,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

@@ -3,12 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes, ExtraOptions } from '@angular/router';
 
-const routes: Routes = [
-  {
-    // path: '',
-    // component: ProfileComponent
-  }
-];
+
 
 describe('AppComponent', () => {
   beforeEach(async () => {

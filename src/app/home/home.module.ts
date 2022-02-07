@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-// import { ProfileComponent } from './profile.component';
-// import { HeaderComponent } from './header/header.component';
-// import { FooterComponent } from './footer/footer.component';
-// import { IntroComponent } from './intro/intro.component';
+import { HomeComponent } from './home.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { IntroComponent } from './intro/intro.component';
+import { AboutComponent } from './about/about.component';
 // import { AboutComponent } from './about/about.component';
 // import { SkillsComponent } from './skills/skills.component';
 // import { PortfolioComponent } from './portfolio/portfolio.component';
@@ -23,10 +24,11 @@ import { FormsModule } from '@angular/forms';
     // NgxPaginationModule
   ],
   declarations: [
-    // ProfileComponent,
-    // HeaderComponent,
-    // FooterComponent,
-    // IntroComponent,
+    HomeComponent,
+    HeaderComponent,
+    FooterComponent,
+    IntroComponent,
+    AboutComponent,
     // AboutComponent,
     // SkillsComponent,
     // PortfolioComponent,
