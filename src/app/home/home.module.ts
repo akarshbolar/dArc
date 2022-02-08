@@ -6,6 +6,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { IntroComponent } from './intro/intro.component';
 import { AboutComponent } from './about/about.component';
+import { DrawComponent } from './draw/draw.component';
 // import { AboutComponent } from './about/about.component';
 // import { SkillsComponent } from './skills/skills.component';
 // import { PortfolioComponent } from './portfolio/portfolio.component';
@@ -29,6 +30,7 @@ import { AboutComponent } from './about/about.component';
     FooterComponent,
     IntroComponent,
     AboutComponent,
+    DrawComponent,
     // AboutComponent,
     // SkillsComponent,
     // PortfolioComponent,
