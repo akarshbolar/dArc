@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-draw',
   templateUrl: './draw.component.html',
-  styleUrls: ['./draw.component.scss']
+  styleUrls: ['./draw.component.scss', "./styles.css", "./flowy.min.css"]
 })
 export class DrawComponent implements OnInit {
 
@@ -14,7 +14,7 @@ export class DrawComponent implements OnInit {
   public container!: ElementRef<HTMLElement>;
 
   public ngOnInit() {
-    this.graph = new mxGraph(this.container.nativeElement);
+   /* this.graph = new mxGraph(this.container.nativeElement);
     this.graph.getModel().beginUpdate();
     try {
       const parent = this.graph.getDefaultParent();
@@ -23,7 +23,7 @@ export class DrawComponent implements OnInit {
       this.graph.insertEdge(parent, "e1", 'with', angularVertex, mxGraphVertex);
     } finally {
       this.graph.getModel().endUpdate();
-    }
+    }*/
   }
 
 
