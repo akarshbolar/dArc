@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-draw',
   templateUrl: './draw.component.html',
-  styleUrls: ['./draw.component.scss', "./styles.css", "./flowy.min.css"]
+  styleUrls: ['./draw.component.scss', "../../../assets/css/styles.css","../../../assets/css/flowy.min.css" ]
 })
 export class DrawComponent implements OnInit {
 
