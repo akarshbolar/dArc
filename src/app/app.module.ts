@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './home/app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { NgdiagramComponent } from './ngdiagram/ngdiagram.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    NgdiagramComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

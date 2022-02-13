@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DrawComponent } from './home/draw/draw.component';
+import { NgdiagramComponent } from './ngdiagram/ngdiagram.component';
 
-const routes: Routes = [{ path: 'draw.component', component: DrawComponent }];
+const routes: Routes = [{ path: 'draw.component', component: DrawComponent },
+{ path : 'ngdiagram.componet', component: NgdiagramComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
