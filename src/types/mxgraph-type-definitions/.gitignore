@@ -1,7 +1,0 @@
-# IDE
-/.idea/
-*.iml
-.vscode
-
-# build
-node_modules
