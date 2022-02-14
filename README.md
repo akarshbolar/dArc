@@ -1,27 +1,32 @@
-# DArc
+# Essential JS 2 for Angular - Diagram Builder
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.0.
+The diagram builder demo application showcases creating diagrams such as flow charts, Mind Map diagrams, and organization chart through visual interface.
 
-## Development server
+## Deployment
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Install
 
-## Code scaffolding
+* To install all dependent packages, use the below command.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```
+npm install
+```
+* If Angular CLI is not installed into your machine, please use the below command to install Angular CLI.
 
-## Build
+```
+npm install -g @angular/cli@7.2.4
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Run
 
-## Running unit tests
+To run the sample, use the below command
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+ng serve
+```
 
-## Running end-to-end tests
+## Demo
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+#### <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">https://ej2.syncfusion.com/showcase/angular/diagrambuilder/</a>
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Check all the showcase samples from <a href="https://ej2.syncfusion.com/home/angular.html" target="_blank">here</a>.
