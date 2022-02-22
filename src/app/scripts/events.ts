@@ -17,21 +17,28 @@ import { PageCreation } from '../scripts/pages';
 import { DropDownListComponent } from '@syncfusion/ej2-angular-dropdowns';
 import { PaperSize } from './utilitymethods';
 
+
 export class DiagramClientSideEvents {
+    [x: string]: any;
     private selectedItem: SelectorViewModel;
     public page: PageCreation;
     public ddlTextPosition: DropDownListComponent;
     constructor(selectedItem: SelectorViewModel, page: PageCreation) {
         this.selectedItem = selectedItem;
         this.page = page;
+       
     }
 
+    public connectorSet = new Set();
+
     public selectionChange(args: ISelectionChangeEventArgs): void {
+       // window.alert("in event selection");
         let diagram: Diagram = this.selectedItem.selectedDiagram;
         if (this.selectedItem.preventSelectionChange || this.selectedItem.isLoading) {
             return;
         }
         if (args.state === 'Changed') {
+            
             if (this.selectedItem.diagramType === 'MindMap') {
                 if (args.newValue.length === 1 && diagram.selectedItems.nodes.length === 1) {
                     let node: Node = args.newValue[0] as Node;
@@ -77,11 +84,15 @@ export class DiagramClientSideEvents {
                 let nodeContainer: HTMLElement = document.getElementById('nodePropertyContainer');
                 nodeContainer.classList.remove('multiple');
                 nodeContainer.classList.remove('connector');
+                
                 if (selectedItems.length > 1) {
+                    //window.alert("in event selection gt 1"+selectedItems.toString);
                     this.multipleSelectionSettings(selectedItems);
                 } else if (selectedItems.length === 1) {
+                    //window.alert("in event selection = 1"+selectedItems.toString);
                     this.singleSelectionSettings(selectedItems[0]);
                 } else {
+                   // window.alert("in event selection lt 1"+selectedItems.toString);
                     this.selectedItem.utilityMethods.objectTypeChange('diagram');
                 }
             }
@@ -104,6 +115,7 @@ export class DiagramClientSideEvents {
             }
         }
         let selectItem1: SelectorModel = this.selectedItem.selectedDiagram.selectedItems;
+        window.alert("Item 1 selected ");
         if (showNodePanel) {
             nodeContainer.style.display = '';
             nodeContainer.classList.add('multiple');
@@ -143,9 +155,11 @@ export class DiagramClientSideEvents {
             object = selectedObject as Node;
             this.selectedItem.utilityMethods.bindNodeProperties(object, this.selectedItem);
         } else if (selectedObject instanceof Connector) {
+            window.alert("Connect singleSettings :"+selectedObject.sourceID+" Targer"+selectedObject.targetID);
             this.selectedItem.utilityMethods.objectTypeChange('connector');
             object = selectedObject as Connector;
             this.selectedItem.utilityMethods.bindConnectorProperties(object, this.selectedItem);
+            this.connectorSet.add(selectedObject);
         }
         if (object.shape && object.shape.type === 'Text') {
             document.getElementById('textPropertyContainer').style.display = '';

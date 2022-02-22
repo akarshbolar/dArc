@@ -955,12 +955,15 @@ export class SelectorViewModel {
     }
 
     public connectorPropertyChange(args: { [key: string]: Object }): void {
+        //window.alert("in connector change");
+        
         if (!this.preventPropertyChange) {
             let diagram: Diagram = this.selectedDiagram;
             if (diagram && diagram.selectedItems.connectors.length > 0) {
                 let selectedNodes: ConnectorModel[] = diagram.selectedItems.connectors;
                 for (let i: number = 0; i < selectedNodes.length; i++) {
                     let connector: Connector = selectedNodes[i] as Connector;
+                    
                     switch (args.propertyName.toString().toLowerCase()) {
                         case 'linecolor':
                             connector.style.strokeColor = this.getColor(this.connectorProperties.lineColor);

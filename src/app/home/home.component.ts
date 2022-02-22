@@ -237,6 +237,8 @@ export class HomeComponent implements AfterViewInit {
     }
 
     public drop(args: IDropEventArgs): void {
+        //window.alert("Drop called");
+        
         if (this.selectedItem.diagramType === 'OrgChart') {
             let diagram: Diagram = this.selectedItem.selectedDiagram;
             let source: object = args.source;
@@ -280,6 +282,22 @@ export class HomeComponent implements AfterViewInit {
 
     public moreShapesClick(args: MouseEvent): void {
         this.moreShapesDialog.show();
+    }
+
+    public getDiagramJson(args: MouseEvent) : void {
+        window.alert("Get diagram called");
+        var elements = document.getElementsByTagName('rect');
+        var output = "";
+    
+        window.alert(this.diagramEvents.connectorSet.size);
+        this.diagramEvents.connectorSet.forEach (function(connector : Connector) {
+            output += "ID : "+connector.id+ " Source :"+ connector.sourceID+ "Dst : "+connector.targetID+"\n";
+          })
+        /*for(let i = 13 ;i<elements.length;i++){
+            output = output+ "***" + elements[i].getAttribute("id");
+        }*/
+        
+        window.alert(output);
     }
 
     public diagramNameChange(args: MouseEvent): void {
@@ -712,6 +730,7 @@ export class HomeComponent implements AfterViewInit {
     }
 
     public drawConnectorChange(args: MenuEventArgs): void {
+        window.alert("Draw connectpr change");
         let diagram: Diagram = this.selectedItem.selectedDiagram;
         if (args.item.text === 'Straight Line') {
             diagram.drawingObject = { type: 'Straight', style: { strokeWidth: 2 } };
