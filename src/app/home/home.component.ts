@@ -521,6 +521,7 @@ export class HomeComponent implements AfterViewInit {
     private btnMoreShapes(args: MouseEvent): void {
         let listSelectedItem: SelectedCollection = this.moreShapesList.getSelectedItems() as SelectedCollection;
         if (listSelectedItem.text.length > 0) {
+            window.alert("In btmMoreSHapes");
             this.symbolpalette.palettes = this.palettes.getPalettes(listSelectedItem.text as string[]);
             this.moreShapesDialog.hide();
         }
@@ -1386,9 +1387,9 @@ export class HomeComponent implements AfterViewInit {
     }
 
     public loadDiagram(event: ProgressEvent): void {
-        this.page.loadPage((event.target as FileReader).result.toString());
-        this.page.loadDiagramSettings();
-        this.fileUploadDialog.hide();
+        //this.page.loadPage((event.target as FileReader).result.toString());
+        //this.page.loadDiagramSettings();
+        //this.fileUploadDialog.hide();
     }
 
     public onTooltipBeforeRender(args: TooltipEventArgs): void {

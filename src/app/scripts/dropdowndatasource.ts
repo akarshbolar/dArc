@@ -140,6 +140,12 @@ export class DropDownDataSources {
         { text: 'Bezier', value: 'Bezier' }
     ];
 
+    //AWS
+    public awsRegions: { [key: string]: Object }[] = [
+        { text: 'us-east-1', value: 'us-east-1' }, { text: 'us-east-2', value: 'us-east-2' },
+        { text: 'us-west-1', value: 'us-west-1' }, { text: 'us-west-2', value: 'us-west-2' }
+    ];
+
     public gradientDirections: { [key: string]: Object }[] = [
         { text: 'BottomToTop', value: 'BottomToTop' }, { text: 'TopToBottom', value: 'TopToBottom' },
         { text: 'RightToLeft', value: 'RightToLeft' }, { text: 'LeftToRight', value: 'LeftToRight' }

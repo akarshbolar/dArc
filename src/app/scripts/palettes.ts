@@ -11,6 +11,12 @@ import { FloorplanShapes } from './floorplan-shapes';
 import { NetworkShapes } from './network-shapes';
 import { ExpandMode } from '@syncfusion/ej2-navigations';
 
+class AWSProperties {
+    private getBasicProperties(){
+
+    }
+}
+
 export class Palettes {
 
     private electricalShapes: ElectricalShapes = new ElectricalShapes();
@@ -38,10 +44,27 @@ export class Palettes {
 
         return basicShapes;
     }
+    private getAWSShapes(): NodeModel[] {
+        
+       //window.alert("In AWS SHapes");
+        
+        let awsShapes: NodeModel[] = [
+            { id:'EC2', shape: { type: 'Image', source: 'https://cdn.worldvectorlogo.com/logos/aws-ec2.svg' },style: { strokeWidth: 2 }},
+            { id:'S3', shape: { type: 'Image', source: ' https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Amazon-S3-Logo.svg/1200px-Amazon-S3-Logo.svg.png' },style: { strokeWidth: 2 }},
+            { id:'ECR', shape: { type: 'Image', source: ' https://img.stackshare.io/service/9251/default_646bca6126ebc8024fdd8921ec54a8a1ba3c510c.png' },style: { strokeWidth: 2 }},
+            { id:'ECR', shape: { type: 'Image', source: ' https://www.shareicon.net/data/512x512/2015/08/28/92200_copy_512x512.png' },style: { strokeWidth: 2 }},
+            { id:'Lambda', shape: { type: 'Image', source: ' https://pngset.com/images/aws-lambda-icon-text-symbol-alphabet-number-transparent-png-662520.png' },style: { strokeWidth: 2 }}
+           
+ 
+        ]
+
+        return awsShapes;
+    }
 
     private getFlowShapes(): NodeModel[] {
 
         let flowShapes: NodeModel[] = [
+           
             { id: 'Terminator', shape: { type: 'Flow', shape: 'Terminator' }, style: { strokeWidth: 2 } },
             { id: 'Process', shape: { type: 'Flow', shape: 'Process' }, style: { strokeWidth: 2 } },
             { id: 'Decision', shape: { type: 'Flow', shape: 'Decision' }, style: { strokeWidth: 2 } },
@@ -175,10 +198,13 @@ export class Palettes {
 
 
     public palettes: PaletteModel[] = [
-        { id: 'flow', expanded: true, symbols: this.getFlowShapes(), title: 'Flow Shapes' },
+        { id: 'aws', expanded: false, symbols: this.getAWSShapes(), title: 'AWS Shapes' }
+        /*{ id: 'flow', expanded: true, symbols: this.getFlowShapes(), title: 'Flow' },
         { id: 'basic', expanded: false, symbols: this.getBasicShapes(), title: 'Basic Shapes' },
         { id: 'bpmn', expanded: false, symbols: this.getBPMNShapes(), title: 'BPMN Shapes' },
-        { id: 'connectors', expanded: false, symbols: this.getConnectors(), title: 'Connectors' }
+        { id: 'connectors', expanded: false, symbols: this.getConnectors(), title: 'Connectors' },*/
+        
+
     ];
     public expandMode: ExpandMode = 'Multiple';
     public symbolPreview: SymbolPreviewModel = { height: 100, width: 100 };
@@ -190,6 +216,7 @@ export class Palettes {
     }
 
     public setPaletteNodeDefaults(node: NodeModel): void {
+       // window.alert("In setPallete Node defaults");
         if (!(node.addInfo && (node.addInfo as { [key: string]: Object }).type === 'CustomShapes') && (!node.children)) {
             if (node.id === 'Terminator' || node.id === 'Process') {
                 node.width = 130;
@@ -210,6 +237,10 @@ export class Palettes {
 
     public getPalettes(text: string[]): PaletteModel[] {
         let palettes: PaletteModel[] = [];
+        window.alert("In alert");
+        if (text.indexOf('AWS') !== -1) {
+            palettes.push({ id: 'aws', expanded: false, symbols: this.getFlowShapes(), title: 'AWS Shapes' });
+        }
         if (text.indexOf('Flow') !== -1) {
             palettes.push({ id: 'flow', expanded: true, symbols: this.getFlowShapes(), title: 'Flow Shapes' });
         }

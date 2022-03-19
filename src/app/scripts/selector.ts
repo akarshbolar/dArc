@@ -13,6 +13,24 @@ import { MindMapUtilityMethods } from './mindmap';
 
 @Injectable()
 export class NodeProperties {
+
+    //AWS
+    private m_region: string = "us-east-1";
+    public get region(): string {
+        return this.m_region;
+    }
+
+    @Input()
+    public set region(region: string) {
+        if (this.m_region !== region) {
+            this.m_region = region;
+            window.alert("in region change");
+            this.triggerPropertyChange('region', region);
+        }
+    }
+
+
+
     private m_offsetX: number = 0;
     public get offsetX(): number {
         return this.m_offsetX;
@@ -885,6 +903,11 @@ export class SelectorViewModel {
                                 break;
                             case 'aspectratio':
                                 node.constraints = node.constraints ^ NodeConstraints.AspectRatio;
+                                break;
+                            case 'region':
+                                window.alert("In Region switch");
+                                //Node node = 
+                               // node  = this.nodeProperties.region;
                                 break;
                         }
                         if (!node.children) {

@@ -151,11 +151,12 @@ export class DiagramClientSideEvents {
     private singleSelectionSettings(selectedObject: Object): void {
         let object: Node | Connector = null;
         if (selectedObject instanceof Node) {
+
             this.selectedItem.utilityMethods.objectTypeChange('node');
             object = selectedObject as Node;
             this.selectedItem.utilityMethods.bindNodeProperties(object, this.selectedItem);
         } else if (selectedObject instanceof Connector) {
-            window.alert("Connect singleSettings :"+selectedObject.sourceID+" Targer"+selectedObject.targetID);
+            window.alert("Connect singleSettings :"+selectedObject.sourceID+" Targer"+selectedObject.targetID+" region : ");
             this.selectedItem.utilityMethods.objectTypeChange('connector');
             object = selectedObject as Connector;
             this.selectedItem.utilityMethods.bindConnectorProperties(object, this.selectedItem);
