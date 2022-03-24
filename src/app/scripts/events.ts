@@ -24,7 +24,8 @@ export class DiagramClientSideEvents {
     public page: PageCreation;
     //AWS
     public serviceIDMap = new Map<string, Map<string,string>>();
-     
+    
+    
     public ddlTextPosition: DropDownListComponent;
     constructor(selectedItem: SelectorViewModel, page: PageCreation) {
         this.selectedItem = selectedItem;
