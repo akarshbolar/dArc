@@ -199,7 +199,7 @@
             </div>
             <div class='db-property-editor-container' style="overflow:auto;">
                 <div id="generalDiagramContainer" class="db-general-diagram-prop-container">
-                    <div id='diagramPropertyContainer' class="db-diagram-prop-container">
+                    <!-- <div id='diagramPropertyContainer' class="db-diagram-prop-container">
                         <div class="row db-prop-header-text">
                             Page Settings
                         </div>
@@ -258,7 +258,7 @@
                             <ejs-checkbox id='showPageBreaks' label="Page Breaks" [checked]="selectedItem.pageSettings.pageBreaks" (change)='diagramPropertyBinding.pageBreaksChange($event)'>
                             </ejs-checkbox>
                         </div>
-                    </div>
+                    </div> -->
 
                    <div id='nodePropertyContainer' class="db-node-prop-container" style="display:hidden">
                     
@@ -269,7 +269,7 @@
 
                             <ejs-dropdownlist id='ec2InstanceType' [dataSource]='dropDownDataSources.ec2InstanceType' placeholder = 'Select Region' [(value)]="selectedItem.nodeProperties.region"></ejs-dropdownlist>--->
 
-                            <p>Test</p>
+                            <p>Test- {{message}}</p>
 
                         </div>
                         <!---<div class="db-node-behaviour-prop">
@@ -1192,7 +1192,7 @@
     </div>
 </div>
 
-<div id="diagramTemplateDiv1" style="display: none">
+<!-- <div id="diagramTemplateDiv1" style="display: none">
     <div class="row">
         <div class="col-xs-3 temp-left-pane">
             <div class="row db-diagram-template-parent-text flowdiagram-template">
@@ -1204,16 +1204,13 @@
             <div class="row db-diagram-template-parent-text orgchart-template">
                 <span>Org Chart</span>
             </div>
-            <!-- <div class="row db-diagram-template-parent-text bpmn-template" style="height:24px">
-                <span>BPMN</span>
-            </div> -->
         </div>
         <div class="col-xs-9 diagramTemplates temp-right-pane" style="padding-left:0px;padding-right:0px">
         </div>
     </div>
-</div>
+</div> -->
 
-<ejs-dialog id="openTemplateDialog" #openTemplateDialog width='695px' height='470px' header='Create New Diagram' [target]='dlgTarget'
+<!-- <ejs-dialog id="openTemplateDialog" #openTemplateDialog width='695px' height='470px' header='Create New Diagram' [target]='dlgTarget'
     isModal="true" [animationSettings]='dialogAnimationSettings' showCloseIcon='true' allowDragging='true' [visible]='dialogVisibility'>
 </ejs-dialog>
 
@@ -1229,9 +1226,9 @@
             </div>
         </div>
     </ng-template>
-</ejs-dialog>
+</ejs-dialog> -->
 
-<ejs-dialog id="moreShapesDialog" #moreShapesDialog width='695px' height='470px' header='Shapes' [target]='dlgTarget' isModal="true"
+<!-- <ejs-dialog id="moreShapesDialog" #moreShapesDialog width='695px' height='470px' header='Shapes' [target]='dlgTarget' isModal="true"
     [animationSettings]='dialogAnimationSettings' showCloseIcon='true' allowDragging='true' [buttons]='moreShapesButtons' [visible]='dialogVisibility'>
     <ng-template #content>
         <div id="moreShapesDialogContent">
@@ -1280,7 +1277,7 @@
             </div>
         </div>
     </ng-template>
-</ejs-dialog>
+</ejs-dialog> -->
 
 
 <div class="db-custom-prop-template" style="display:none">

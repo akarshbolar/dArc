@@ -16,24 +16,45 @@ import { TooltipEventArgs } from '@syncfusion/ej2-popups';
 import { PageCreation } from '../scripts/pages';
 import { DropDownListComponent } from '@syncfusion/ej2-angular-dropdowns';
 import { PaperSize } from './utilitymethods';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 
+import { DataService } from "../data.service";
+import { Subscription } from 'rxjs';
 
-export class DiagramClientSideEvents {
+@Component({
+    template: ''
+  })
+
+export class DiagramClientSideEvents implements OnInit, OnDestroy{
     [x: string]: any;
     private selectedItem: SelectorViewModel;
     public page: PageCreation;
     //AWS
     public serviceIDMap = new Map<string, Map<string,string>>();
     
+    message:string;
+    subscription: Subscription;
     
     public ddlTextPosition: DropDownListComponent;
-    constructor(selectedItem: SelectorViewModel, page: PageCreation) {
+    constructor(selectedItem: SelectorViewModel, page: PageCreation, private data: DataService) {
         this.selectedItem = selectedItem;
         this.page = page;
-       
     }
 
+    ngOnInit() {
+        this.subscription = this.data.currentMessage.subscribe(message => this.message = message)
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
+
+    newMessage(id) {
+        this.data.changeMessage(id)
+      }
     public connectorSet = new Set();
+
+    
 
     public selectionChange(args: ISelectionChangeEventArgs): void {
      //  window.alert("in event selection");
@@ -155,10 +176,32 @@ export class DiagramClientSideEvents {
     private singleSelectionSettings(selectedObject: Object): void {
         let object: Node | Connector = null;
         if (selectedObject instanceof Node) {
-
-            window.alert(selectedObject.id);
+            var selectionType;
+            
+            if(selectedObject.id.includes("EC2")){
+                selectionType = "EC2";
+            }
+            else if(selectedObject.id.includes("S3")){
+                selectionType = "S3";
+            }
+            else if(selectedObject.id.includes("ECR")){
+                selectionType = "ECR";
+            }
+            else if(selectedObject.id.includes("VPC")){
+                selectionType = "VPC";
+            }
+            else if(selectedObject.id.includes("Lambda")){
+                selectionType = "Lambda";
+            }
+            else{
+                selectionType = "DynamoDB";
+            }
+            window.alert(selectedObject.id + selectionType);
             if(!this.serviceIDMap.has(selectedObject.id)){
-                
+                this.newMessage("Object Type "+selectionType)
+                //string.includes(substring)
+                // EC2,S3,ECR,VPC,Lambda,DynamoDB
+
             }
             this.selectedItem.utilityMethods.objectTypeChange('node');
             object = selectedObject as Node;

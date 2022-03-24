@@ -14,6 +14,8 @@ import { ListViewModule } from '@syncfusion/ej2-angular-lists';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
+import { DataService } from './data.service';
+
 @NgModule({
     imports: [
         FormsModule, DiagramAllModule, SymbolPaletteAllModule, ListViewModule,
@@ -24,6 +26,9 @@ import { HomeComponent } from './home/home.component';
     declarations: [
         AppComponent,
         HomeComponent
+    ],
+    providers: [
+        DataService
     ],
     bootstrap: [AppComponent],
 })

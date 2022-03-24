@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, AfterViewInit, OnInit, OnDestroy} from '@angular/core';
 import { formatUnit, createElement, closest, Ajax } from '@syncfusion/ej2-base';
 import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
 import {
@@ -36,6 +36,9 @@ import { Palettes } from '../scripts/palettes';
 import { MindMap, MindMapUtilityMethods } from '../scripts/mindmap';
 import { ListViewComponent, FieldsMapping, SelectedCollection, SelectEventArgs } from '@syncfusion/ej2-angular-lists';
 
+import { DataService } from "../data.service";
+import { Subscription } from 'rxjs';
+
 Diagram.Inject(UndoRedo, DiagramContextMenu, Snapping, DataBinding);
 Diagram.Inject(PrintAndExport, BpmnDiagrams, HierarchicalTree, MindMapTree, ConnectorBridging, LayoutAnimation);
 SymbolPalette.Inject(BpmnDiagrams);
@@ -46,7 +49,7 @@ SymbolPalette.Inject(BpmnDiagrams);
     encapsulation: ViewEncapsulation.None
 })
 
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
 
     @ViewChild('diagram')
     public diagram: DiagramComponent;
@@ -159,7 +162,7 @@ export class HomeComponent implements AfterViewInit {
     public page: PageCreation = new PageCreation(this.selectedItem);
     public customProperty: CustomProperties = new CustomProperties(this.selectedItem, this.customPropertyDialog);
     public diagramLayer: DiagramBuilderLayer = new DiagramBuilderLayer(this.selectedItem, this.layerDialog);
-    public diagramEvents: DiagramClientSideEvents = new DiagramClientSideEvents(this.selectedItem, this.page);
+    public diagramEvents: DiagramClientSideEvents = new DiagramClientSideEvents(this.selectedItem, this.page,this.data);
     public diagramPropertyBinding: DiagramPropertyBinding = new DiagramPropertyBinding(this.selectedItem, this.page);
     public mindmapPropertyBinding: MindMapPropertyBinding = new MindMapPropertyBinding(this.selectedItem);
     public orgChartPropertyBinding: OrgChartPropertyBinding = new OrgChartPropertyBinding(this.selectedItem);
@@ -172,8 +175,25 @@ export class HomeComponent implements AfterViewInit {
     public pasteData: boolean = false;
     public overview: Overview;
 
-    public ngAfterViewInit(): void {
+    message:string;
+    subscription: Subscription;
 
+    constructor(private data: DataService) { }
+
+    ngOnInit() {
+        this.subscription = this.data.currentMessage.subscribe(message => this.message = message)
+    }
+    
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
+
+    newMessage() {
+        this.data.changeMessage("Hello from Parent")
+      }
+
+    public ngAfterViewInit(): void {
+        this.newMessage();
         this.generateDiagram();
         this.page.addNewPage();
 
@@ -237,7 +257,6 @@ export class HomeComponent implements AfterViewInit {
     }
 
     public drop(args: IDropEventArgs): void {
-        //window.alert("Drop called");
         
         if (this.selectedItem.diagramType === 'OrgChart') {
             let diagram: Diagram = this.selectedItem.selectedDiagram;
