@@ -1,0 +1,15 @@
+{
+    "EC2":[
+        "region","AMI","instanceType"
+    ],
+    "S3":[
+        "region","bucketName"
+    ],
+    "DynamoDB":[
+        "region", "tableName","partitionKey"
+    ],
+    "Lambda":[
+        "region","functionName","functionCode","runtimeLang"
+    ]
+    
+}

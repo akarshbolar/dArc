@@ -52,9 +52,10 @@ export class Palettes {
             { id:'EC2', shape: { type: 'Image', source: 'https://cdn.worldvectorlogo.com/logos/aws-ec2.svg' },style: { strokeWidth: 2 }},
             { id:'S3', shape: { type: 'Image', source: ' https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Amazon-S3-Logo.svg/1200px-Amazon-S3-Logo.svg.png' },style: { strokeWidth: 2 }},
             { id:'ECR', shape: { type: 'Image', source: ' https://img.stackshare.io/service/9251/default_646bca6126ebc8024fdd8921ec54a8a1ba3c510c.png' },style: { strokeWidth: 2 }},
-            { id:'ECR', shape: { type: 'Image', source: ' https://www.shareicon.net/data/512x512/2015/08/28/92200_copy_512x512.png' },style: { strokeWidth: 2 }},
-            { id:'Lambda', shape: { type: 'Image', source: ' https://pngset.com/images/aws-lambda-icon-text-symbol-alphabet-number-transparent-png-662520.png' },style: { strokeWidth: 2 }}
-           
+            { id:'VPC', shape: { type: 'Image', source: ' https://www.shareicon.net/data/512x512/2015/08/28/92200_copy_512x512.png' },style: { strokeWidth: 2 }},
+            { id:'Lambda', shape: { type: 'Image', source: ' https://pngset.com/images/aws-lambda-icon-text-symbol-alphabet-number-transparent-png-662520.png' },style: { strokeWidth: 2 }},
+            { id:'DynamoDB', shape: { type: 'Image', source: ' https://pngset.com/images/aws-lambda-icon-text-symbol-alphabet-number-transparent-png-662520.png' },style: { strokeWidth: 2 }}
+     
  
         ]
 

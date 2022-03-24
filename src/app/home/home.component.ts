@@ -731,7 +731,7 @@ export class HomeComponent implements AfterViewInit {
     }
 
     public drawConnectorChange(args: MenuEventArgs): void {
-        window.alert("Draw connectpr change");
+        //window.alert("Draw connectpr change");
         let diagram: Diagram = this.selectedItem.selectedDiagram;
         if (args.item.text === 'Straight Line') {
             diagram.drawingObject = { type: 'Straight', style: { strokeWidth: 2 } };

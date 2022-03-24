@@ -29,6 +29,8 @@ export class NodeProperties {
         }
     }
 
+    
+
 
 
     private m_offsetX: number = 0;
@@ -906,6 +908,7 @@ export class SelectorViewModel {
                                 break;
                             case 'region':
                                 window.alert("In Region switch");
+                                this.nodeProperties.region
                                 //Node node = 
                                // node  = this.nodeProperties.region;
                                 break;

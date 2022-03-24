@@ -146,6 +146,16 @@ export class DropDownDataSources {
         { text: 'us-west-1', value: 'us-west-1' }, { text: 'us-west-2', value: 'us-west-2' }
     ];
 
+    public ec2AMI: { [key: string]: Object }[] = [
+        { text: 'linux64', value: 'linux64' }, { text: 'windows10', value: 'windows10' }
+    ];
+
+    public ec2InstanceType: { [key: string]: Object }[] = [
+        { text: 't2micro', value: 't2micro' }, { text: 't2nano', value: 't2nano' },
+        { text: 't2mini', value: 't2mini' }
+    ];
+    
+
     public gradientDirections: { [key: string]: Object }[] = [
         { text: 'BottomToTop', value: 'BottomToTop' }, { text: 'TopToBottom', value: 'TopToBottom' },
         { text: 'RightToLeft', value: 'RightToLeft' }, { text: 'LeftToRight', value: 'LeftToRight' }

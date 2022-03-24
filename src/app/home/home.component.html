@@ -260,23 +260,28 @@
                         </div>
                     </div>
 
-                    <div id='nodePropertyContainer' class="db-node-prop-container" style="display:none">
+                   <div id='nodePropertyContainer' class="db-node-prop-container" style="display:hidden">
+                    
                         <div class="db-node-behaviour-prop">
-                            
+                            <ejs-dropdownlist id='awsregion' [dataSource]='dropDownDataSources.awsRegions' placeholder = 'Select Region' [(value)]="selectedItem.nodeProperties.region"></ejs-dropdownlist>
 
+                            <ejs-dropdownlist id='ec2AMI' [dataSource]='dropDownDataSources.ec2AMI' placeholder = 'Select Region' [(value)]="selectedItem.nodeProperties.region"></ejs-dropdownlist>
 
+                            <ejs-dropdownlist id='ec2InstanceType' [dataSource]='dropDownDataSources.ec2InstanceType' placeholder = 'Select Region' [(value)]="selectedItem.nodeProperties.region"></ejs-dropdownlist>
+
+                            <p>Test</p>
 
                         </div>
-                        <div class="db-node-behaviour-prop">
+                        <!---<div class="db-node-behaviour-prop">
                             <div class="row db-prop-header-text">
                                 Region
                             </div>
                             <div class="row db-prop-row">
                                 <div class="col-xs-6 db-col-left">
                                     <div class="db-text-container">
-                                        <!---AWS-->
+                                      
                             <ejs-dropdownlist id='awsregion' [dataSource]='dropDownDataSources.awsRegions' placeholder = 'Select Region' [(value)]="selectedItem.nodeProperties.region"></ejs-dropdownlist>
-                                      <!---  <div class="db-text">
+                                        <div class="db-text">
                                             <span>Region</span>
                                         </div>
                                         Right dimensions
@@ -361,7 +366,7 @@
                             <div class="db-prop-separator">
                             </div>
                         </div>
-                   --->
+                   
                         <div id='nodeStyleProperties' class="db-node-style-prop">
                             <div class="row db-background-style">
                                 <div class="row db-prop-header-text">
@@ -463,7 +468,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>--->
                     </div>
                     <div id='connectorPropertyContainer' class="db-connector-prop-container" style="display:none">
                         <div class="row db-prop-header-text">

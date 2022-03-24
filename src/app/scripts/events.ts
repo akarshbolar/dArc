@@ -22,6 +22,9 @@ export class DiagramClientSideEvents {
     [x: string]: any;
     private selectedItem: SelectorViewModel;
     public page: PageCreation;
+    //AWS
+    public serviceIDMap = new Map<string, Map<string,string>>();
+     
     public ddlTextPosition: DropDownListComponent;
     constructor(selectedItem: SelectorViewModel, page: PageCreation) {
         this.selectedItem = selectedItem;
@@ -32,7 +35,7 @@ export class DiagramClientSideEvents {
     public connectorSet = new Set();
 
     public selectionChange(args: ISelectionChangeEventArgs): void {
-       // window.alert("in event selection");
+     //  window.alert("in event selection");
         let diagram: Diagram = this.selectedItem.selectedDiagram;
         if (this.selectedItem.preventSelectionChange || this.selectedItem.isLoading) {
             return;
@@ -89,7 +92,7 @@ export class DiagramClientSideEvents {
                     //window.alert("in event selection gt 1"+selectedItems.toString);
                     this.multipleSelectionSettings(selectedItems);
                 } else if (selectedItems.length === 1) {
-                    //window.alert("in event selection = 1"+selectedItems.toString);
+                    window.alert("in event selection = 1"+selectedItems[0].toString());
                     this.singleSelectionSettings(selectedItems[0]);
                 } else {
                    // window.alert("in event selection lt 1"+selectedItems.toString);
@@ -115,7 +118,7 @@ export class DiagramClientSideEvents {
             }
         }
         let selectItem1: SelectorModel = this.selectedItem.selectedDiagram.selectedItems;
-        window.alert("Item 1 selected ");
+      //  window.alert("Item 1 selected ");
         if (showNodePanel) {
             nodeContainer.style.display = '';
             nodeContainer.classList.add('multiple');
@@ -152,6 +155,10 @@ export class DiagramClientSideEvents {
         let object: Node | Connector = null;
         if (selectedObject instanceof Node) {
 
+            window.alert(selectedObject.id);
+            if(!this.serviceIDMap.has(selectedObject.id)){
+                
+            }
             this.selectedItem.utilityMethods.objectTypeChange('node');
             object = selectedObject as Node;
             this.selectedItem.utilityMethods.bindNodeProperties(object, this.selectedItem);
