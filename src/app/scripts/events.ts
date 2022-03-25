@@ -32,7 +32,7 @@ export class DiagramClientSideEvents implements OnInit, OnDestroy{
     //AWS
     public serviceIDMap = new Map<string, Map<string,string>>();
     
-    message:string;
+    objectType:string;
     subscription: Subscription;
     
     public ddlTextPosition: DropDownListComponent;
@@ -42,15 +42,15 @@ export class DiagramClientSideEvents implements OnInit, OnDestroy{
     }
 
     ngOnInit() {
-        this.subscription = this.data.currentMessage.subscribe(message => this.message = message)
+        this.subscription = this.data.currentMessage.subscribe(objectType => this.objectType = objectType)
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
 
-    newMessage(id) {
-        this.data.changeMessage(id)
+    newMessage(data) {
+        this.data.changeMessage(data)
       }
     public connectorSet = new Set();
 
@@ -114,7 +114,7 @@ export class DiagramClientSideEvents implements OnInit, OnDestroy{
                     //window.alert("in event selection gt 1"+selectedItems.toString);
                     this.multipleSelectionSettings(selectedItems);
                 } else if (selectedItems.length === 1) {
-                    window.alert("in event selection = 1"+selectedItems[0].toString());
+                    // window.alert("in event selection = 1"+selectedItems[0].toString());
                     this.singleSelectionSettings(selectedItems[0]);
                 } else {
                    // window.alert("in event selection lt 1"+selectedItems.toString);
@@ -176,33 +176,10 @@ export class DiagramClientSideEvents implements OnInit, OnDestroy{
     private singleSelectionSettings(selectedObject: Object): void {
         let object: Node | Connector = null;
         if (selectedObject instanceof Node) {
-            var selectionType;
             
-            if(selectedObject.id.includes("EC2")){
-                selectionType = "EC2";
-            }
-            else if(selectedObject.id.includes("S3")){
-                selectionType = "S3";
-            }
-            else if(selectedObject.id.includes("ECR")){
-                selectionType = "ECR";
-            }
-            else if(selectedObject.id.includes("VPC")){
-                selectionType = "VPC";
-            }
-            else if(selectedObject.id.includes("Lambda")){
-                selectionType = "Lambda";
-            }
-            else{
-                selectionType = "DynamoDB";
-            }
-            window.alert(selectedObject.id + selectionType);
-            if(!this.serviceIDMap.has(selectedObject.id)){
-                this.newMessage("Object Type "+selectionType)
+                this.newMessage(selectedObject.id)
                 //string.includes(substring)
                 // EC2,S3,ECR,VPC,Lambda,DynamoDB
-
-            }
             this.selectedItem.utilityMethods.objectTypeChange('node');
             object = selectedObject as Node;
             this.selectedItem.utilityMethods.bindNodeProperties(object, this.selectedItem);

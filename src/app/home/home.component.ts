@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild, AfterViewInit, OnInit, OnDestroy} from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, AfterViewInit, OnInit, OnChanges, OnDestroy} from '@angular/core';
 import { formatUnit, createElement, closest, Ajax } from '@syncfusion/ej2-base';
 import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
 import {
@@ -175,13 +175,21 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     public pasteData: boolean = false;
     public overview: Overview;
 
-    message:string;
+    objectId:string;
+    objectType:string;
+    currentObject;
     subscription: Subscription;
+    serviceIDMap = new Map<string, Map<string,string>>();
 
     constructor(private data: DataService) { }
 
     ngOnInit() {
-        this.subscription = this.data.currentMessage.subscribe(message => this.message = message)
+        this.subscription = this.data.currentMessage.subscribe(objectId => 
+            {
+            this.objectId = objectId;
+            this.getObjectType();
+            this.insertToContainer();
+        })
     }
     
     ngOnDestroy() {
@@ -191,6 +199,16 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     newMessage() {
         this.data.changeMessage("Hello from Parent")
       }
+
+    getObjectType() {
+        // window.alert("Im being called "+this.objectId)
+        this.objectType = this.data.getObjectType();
+        
+    }
+
+    insertToContainer() {
+        this.currentObject = this.data.insertToContainer();
+    }
 
     public ngAfterViewInit(): void {
         this.newMessage();
@@ -232,6 +250,9 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
         }
         return null;
     }
+
+    isString(val): boolean { 
+        return typeof val == 'string' }
 
     public collectionChange(args: ICollectionChangeEventArgs): void {
         if (this.selectedItem.diagramType === 'GeneralDiagram') {
