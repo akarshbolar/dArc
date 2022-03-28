@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import * as _ from 'lodash';
 
  class serviceParameterValues{
 
@@ -23,15 +24,15 @@ export class DataService {
     public currentObject;
 
     public EC2 = {
-        "region":{"currValue":"temp1","dropdown":["us-east1","us-east2"]},
-        "OS":{"currValue":"temp2","dropdown":["ubuntu","windows","amazon-linux"]},
+        "region":{"currValue":"us-east1","dropdown":["us-east1","us-east2"]},
+        "OS":{"currValue":"windows","dropdown":["ubuntu","windows","amazon-linux"]},
         "EC2Name":"",
-        "instanceType":{"currValue":"","dropdown":["t2-micro","t2-nano"]}
+        "instanceType":{"currValue":"t2-nano","dropdown":["t2-micro","t2-nano"]}
     };
 
     public S3 = {
         "bucketName":"",
-        "region":{"currValue":"","dropdown":["us-east1","us-east2"]},
+        "region":{"currValue":"us-east1","dropdown":["us-east1","us-east2"]},
         "filePath":""
     }
 
@@ -67,11 +68,16 @@ export class DataService {
 
   insertToContainer() {
       if(!(this.messageSource.getValue() in this.objectContainer)){
+        console.log(this.messageSource.getValue())
           if(this.objectType=="EC2"){
-            this.objectContainer[this.messageSource.getValue()]={ ...this.EC2};
+            // this.objectContainer[this.messageSource.getValue()]={ ...this.EC2};
+            // this.objectContainer[this.messageSource.getValue()]=JSON.parse(JSON.stringify(this.EC2))
+            this.objectContainer[this.messageSource.getValue()]=_.cloneDeep(this.EC2)
           }
           else if(this.objectType=="S3"){
-            this.objectContainer[this.messageSource.getValue()]={ ...this.S3};
+            // this.objectContainer[this.messageSource.getValue()]={ ...this.S3};
+            // this.objectContainer[this.messageSource.getValue()]=JSON.parse(JSON.stringify(this.S3))
+            this.objectContainer[this.messageSource.getValue()]=_.cloneDeep(this.S3)
           }
       }
         this.currentObject = this.objectContainer[this.messageSource.getValue()];

@@ -254,6 +254,18 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     isString(val): boolean { 
         return typeof val == 'string' }
 
+        onChange(key,value,type) {
+            if(type==1){
+                this.data.objectContainer[this.objectId][key].currValue = value;
+                this.currentObject[key].currValue = value;
+            }
+            else if(type==0) {
+                this.data.objectContainer[this.objectId][key] = value;
+                this.currentObject[key] = value;
+            }
+            console.log("Value selected: "+value+" : key "+key+" objectType :"+this.objectType+" objectId :"+this.objectId+" currObj"+this.currentObject);
+        }
+
     public collectionChange(args: ICollectionChangeEventArgs): void {
         if (this.selectedItem.diagramType === 'GeneralDiagram') {
             if (args.state === 'Changed' && args.type === 'Addition' &&
@@ -329,7 +341,7 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
         var elements = document.getElementsByTagName('rect');
         var output = "";
     
-        window.alert(this.diagramEvents.connectorSet.size);
+        // window.alert(this.diagramEvents.connectorSet.size);
         this.diagramEvents.connectorSet.forEach (function(connector : Connector) {
             output += "ID : "+connector.id+ " Source :"+ connector.sourceID+ "Dst : "+connector.targetID+"\n";
           })
@@ -338,6 +350,10 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
         }*/
         
         window.alert(output);
+    }
+
+    public submitService(args: MouseEvent) {
+        window.alert(JSON.stringify(this.data.objectContainer));
     }
 
     public diagramNameChange(args: MouseEvent): void {

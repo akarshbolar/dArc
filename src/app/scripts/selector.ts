@@ -907,7 +907,7 @@ export class SelectorViewModel {
                                 node.constraints = node.constraints ^ NodeConstraints.AspectRatio;
                                 break;
                             case 'region':
-                                window.alert("In Region switch");
+                                // window.alert("In Region switch");
                                 this.nodeProperties.region
                                 //Node node = 
                                // node  = this.nodeProperties.region;
