@@ -270,20 +270,34 @@
                             <ejs-dropdownlist id='ec2InstanceType' [dataSource]='dropDownDataSources.ec2InstanceType' placeholder = 'Select Region' [(value)]="selectedItem.nodeProperties.region"></ejs-dropdownlist>--->
 
                             <!-- <p>Test- {{objectId}} and  {{objectType}}</p> -->
-                            <div *ngFor="let item of currentObject | keyvalue">
-                                
-                                <div *ngIf='isString(item.value)'>
-                                    <b>{{item.key}}</b> <input type="text" id="lname" name="lname"><br>
+                            <div *ngFor="let item of currentObject | keyvalue" >
+
+                                <div *ngIf='isFileUpload(item.key)'>
+                                    <b>{{item.value}}</b> <br>
+                                    <input type="file" multiple  class="form-control" (change)="handleFileInput($event.target.files)">
+                                    <button (click)="onUpload()" 
+        class="btn btn-success">
+        Upload
+    </button>
+                                </div>
+                            
+                                <div *ngIf='isString(item.value) && !isFileUpload(item.key)'>
+                                    <b>{{item.key}}</b>  <input type="text" id="lname" name="lname"><br>
                                 </div>
                                 <br>
                                 <div *ngIf='!isString(item.value)'>
                                     <b>{{item.key}}</b> <br>
                                     <select>
-                                        <option *ngFor="let number of item.value.dropdown">
+                                        <option *ngFor="let number of item.value.dropdown" >
                                             {{number}}
                                         </option>
                                         </select>
-                            </div>
+                                </div>
+
+                                
+
+
+
 
                         </div>
                         <!---<div class="db-node-behaviour-prop">

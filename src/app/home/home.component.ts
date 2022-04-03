@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild, AfterViewInit, OnInit, OnChanges, OnDestroy} from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, AfterViewInit, OnInit, OnChanges, OnDestroy, SimpleChanges, ElementRef} from '@angular/core';
 import { formatUnit, createElement, closest, Ajax } from '@syncfusion/ej2-base';
 import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
 import {
@@ -35,13 +35,17 @@ import { DiagramClientSideEvents, DiagramPropertyBinding, MindMapPropertyBinding
 import { Palettes } from '../scripts/palettes';
 import { MindMap, MindMapUtilityMethods } from '../scripts/mindmap';
 import { ListViewComponent, FieldsMapping, SelectedCollection, SelectEventArgs } from '@syncfusion/ej2-angular-lists';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { DataService } from "../data.service";
 import { Subscription } from 'rxjs';
 
+
 Diagram.Inject(UndoRedo, DiagramContextMenu, Snapping, DataBinding);
 Diagram.Inject(PrintAndExport, BpmnDiagrams, HierarchicalTree, MindMapTree, ConnectorBridging, LayoutAnimation);
 SymbolPalette.Inject(BpmnDiagrams);
+
+
 
 @Component({
     selector: 'main-section',
@@ -49,7 +53,9 @@ SymbolPalette.Inject(BpmnDiagrams);
     encapsulation: ViewEncapsulation.None
 })
 
-export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
+
+
+export class HomeComponent implements AfterViewInit, OnInit, OnDestroy, OnChanges {
 
     @ViewChild('diagram')
     public diagram: DiagramComponent;
@@ -120,6 +126,9 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     @ViewChild('moreShapesList')
     public moreShapesList: ListViewComponent;
 
+    @ViewChild('lname')
+    public lname : ElementRef<HTMLInputElement>;
+
     /* ContextMenu Animation Settings */
     public animationSettings: MenuAnimationSettingsModel = { effect: 'None' };
 
@@ -180,12 +189,27 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     currentObject;
     subscription: Subscription;
     serviceIDMap = new Map<string, Map<string,string>>();
+    selectedFiles: File[];
+    file: File = null;
+    fileIndex  = 0;
+    fileName: string;
+    formData = new FormData();
+  //  http : HttpClient ;
 
-    constructor(private data: DataService) { }
+    constructor(private data: DataService, private http:HttpClient) { }
+    ngOnChanges(changes: SimpleChanges): void {
+        window.alert("In Onchanges");
+    }
+
+    sendTheNewValue(event,objectId,key,value){
+       // var lname = ((document.getElementById("lname") as HTMLInputElement).value);
+      window.alert("in event change "+objectId+" : "+key+" : "+this.lname+": "+event.toString());
+
+    }
 
     ngOnInit() {
         this.subscription = this.data.currentMessage.subscribe(objectId => 
-            {
+        {
             this.objectId = objectId;
             this.getObjectType();
             this.insertToContainer();
@@ -196,12 +220,15 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 
+
+
+
     newMessage() {
         this.data.changeMessage("Hello from Parent")
       }
 
     getObjectType() {
-        // window.alert("Im being called "+this.objectId)
+        //window.alert("Im being called "+this.objectId)
         this.objectType = this.data.getObjectType();
         
     }
@@ -251,8 +278,49 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
         return null;
     }
 
+    changeNodeProperty():void{
+        window.alert("In changeNodeProperty");
+    }
+
     isString(val): boolean { 
         return typeof val == 'string' }
+
+
+    isFileUpload(val): boolean {
+       // window.alert(val); }
+            
+       return  val == 'fileUpload' }
+
+       onUpload():void{
+        window.alert("In on upload ")
+        let upload = this.http.post("http://localhost:4200", this.formData);
+
+        upload.subscribe(resp => {
+            alert("Uploaded")
+          });
+    }
+
+    handleFileInput(files:FileList){
+ 
+        window.alert("In file Upload");
+        console.log(files)
+        this.file = files[0];
+        if (this.file) {
+
+            this.fileName = this.file.name;
+
+            
+
+            this.formData.append("file"+this.fileIndex, this.file, this.fileName);
+
+         
+
+            
+        }
+        ++this.fileIndex;
+
+        window.alert("After In file Upload"+" index: "+this.fileIndex);
+    }
 
     public collectionChange(args: ICollectionChangeEventArgs): void {
         if (this.selectedItem.diagramType === 'GeneralDiagram') {

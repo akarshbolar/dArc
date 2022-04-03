@@ -15,17 +15,25 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
 import { DataService } from './data.service';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AccesskeySecretkeyComponent } from './accesskey-secretkey/accesskey-secretkey.component';
+
 
 @NgModule({
     imports: [
         FormsModule, DiagramAllModule, SymbolPaletteAllModule, ListViewModule,
         NumericTextBoxModule, DropDownButtonModule, ContextMenuModule, SliderModule,
-        ToolbarModule, DropDownListModule, ButtonModule, RadioButtonModule, UploaderModule,
-        DialogModule, CheckBoxModule, MultiSelectAllModule, TooltipModule, ColorPickerModule, BrowserModule
+        ToolbarModule, DropDownListModule, ButtonModule, RadioButtonModule, UploaderModule,HttpClientModule,
+        DialogModule, CheckBoxModule, MultiSelectAllModule, TooltipModule, ColorPickerModule, BrowserModule, AppRoutingModule
     ],
     declarations: [
         AppComponent,
-        HomeComponent
+        HomeComponent,
+        LoginComponent,
+        AccesskeySecretkeyComponent,
+
     ],
     providers: [
         DataService

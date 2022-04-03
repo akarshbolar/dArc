@@ -32,7 +32,8 @@ export class DataService {
     public S3 = {
         "bucketName":"",
         "region":{"currValue":"","dropdown":["us-east1","us-east2"]},
-        "filePath":""
+        "filePath":"",
+        "fileUpload" : "Upload Files to S3"
     }
 
   constructor() {
@@ -40,6 +41,7 @@ export class DataService {
    }
 
   changeMessage(message: string) {
+    //window.alert("change message");
     this.messageSource.next(message)
   }
 

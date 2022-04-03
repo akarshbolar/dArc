@@ -49,6 +49,7 @@ export class DiagramClientSideEvents implements OnInit, OnDestroy{
         this.subscription.unsubscribe();
     }
 
+
     newMessage(data) {
         this.data.changeMessage(data)
       }
