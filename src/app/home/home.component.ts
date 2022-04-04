@@ -46,6 +46,7 @@ SymbolPalette.Inject(BpmnDiagrams);
 @Component({
     selector: 'main-section',
     templateUrl: 'home.component.html',
+    styleUrls: ['./home.component.css'],
     encapsulation: ViewEncapsulation.None
 })
 

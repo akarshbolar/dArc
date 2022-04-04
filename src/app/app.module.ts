@@ -10,18 +10,39 @@ import { DropDownListModule, MultiSelectAllModule } from '@syncfusion/ej2-angula
 import { ButtonModule, RadioButtonModule, CheckBoxModule } from '@syncfusion/ej2-angular-buttons';
 import { NumericTextBoxModule, SliderModule, UploaderModule, ColorPickerModule } from '@syncfusion/ej2-angular-inputs';
 import { ListViewModule } from '@syncfusion/ej2-angular-lists';
+import { RouterModule, Routes, ExtraOptions } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { LandingComponent } from './landing/landing.component';
+import { LandingModule } from './landing/landing.module';
+
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DataService } from './data.service';
+
+const routes: Routes = [
+    {
+      path: '', component: LandingComponent
+    },
+    {
+      path: 'draw', component: HomeComponent
+    }
+  ];
 
 @NgModule({
     imports: [
         FormsModule, DiagramAllModule, SymbolPaletteAllModule, ListViewModule,
         NumericTextBoxModule, DropDownButtonModule, ContextMenuModule, SliderModule,
         ToolbarModule, DropDownListModule, ButtonModule, RadioButtonModule, UploaderModule,
-        DialogModule, CheckBoxModule, MultiSelectAllModule, TooltipModule, ColorPickerModule, BrowserModule
+        DialogModule, CheckBoxModule, MultiSelectAllModule, TooltipModule, ColorPickerModule, BrowserModule,
+        HttpClientModule,LandingModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserAnimationsModule,
+    RouterModule.forRoot(routes, {
+    initialNavigation: 'enabled'
+}),
     ],
     declarations: [
         AppComponent,
