@@ -38,6 +38,7 @@ import { ListViewComponent, FieldsMapping, SelectedCollection, SelectEventArgs }
 
 import { DataService } from "../data.service";
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 Diagram.Inject(UndoRedo, DiagramContextMenu, Snapping, DataBinding);
 Diagram.Inject(PrintAndExport, BpmnDiagrams, HierarchicalTree, MindMapTree, ConnectorBridging, LayoutAnimation);
@@ -182,7 +183,7 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     subscription: Subscription;
     serviceIDMap = new Map<string, Map<string,string>>();
 
-    constructor(private data: DataService) { }
+    constructor(private data: DataService, private router: Router) { }
 
     ngOnInit() {
         this.subscription = this.data.currentMessage.subscribe(objectId => 
@@ -354,7 +355,13 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     public submitService(args: MouseEvent) {
+        this.router.navigate(['/login']);
         window.alert(JSON.stringify(this.data.objectContainer));
+    }
+
+    public signOut(args: MouseEvent) {
+        this.router.navigate(['/login']);
+        //window.alert(JSON.stringify(this.data.objectContainer));
     }
 
     public diagramNameChange(args: MouseEvent): void {

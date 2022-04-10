@@ -7,6 +7,10 @@ import { FooterComponent } from './footer/footer.component';
 import { IntroComponent } from './intro/intro.component';
 import { AboutComponent } from './about/about.component';
 import { DrawComponent } from './draw/draw.component';
+import { Routes } from '@angular/router';
+import { LoginComponent } from '../login/login.component';
+import { HomeComponent } from '../home/home.component';
+import { AppRoutingModule } from '../app-routing.module';
 // import { AboutComponent } from './about/about.component';
 // import { SkillsComponent } from './skills/skills.component';
 // import { PortfolioComponent } from './portfolio/portfolio.component';
@@ -18,10 +22,13 @@ import { DrawComponent } from './draw/draw.component';
 // import { NgxPaginationModule } from 'ngx-pagination';
 // import { SplitPipe } from './split.pipe';
 
+
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    AppRoutingModule
     // NgxPaginationModule
   ],
   declarations: [

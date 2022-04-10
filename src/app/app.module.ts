@@ -21,15 +21,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DataService } from './data.service';
+import { LoginComponent } from './login/login.component';
+import { AccesskeySecretkeyComponent } from './accesskey-secretkey/accesskey-secretkey.component';
+import { AppRoutingModule } from './app-routing.module';
 
-const routes: Routes = [
-    {
-      path: '', component: LandingComponent
-    },
-    {
-      path: 'draw', component: HomeComponent
-    }
-  ];
+
 
 @NgModule({
     imports: [
@@ -37,16 +33,15 @@ const routes: Routes = [
         NumericTextBoxModule, DropDownButtonModule, ContextMenuModule, SliderModule,
         ToolbarModule, DropDownListModule, ButtonModule, RadioButtonModule, UploaderModule,
         DialogModule, CheckBoxModule, MultiSelectAllModule, TooltipModule, ColorPickerModule, BrowserModule,
-        HttpClientModule,LandingModule,
+        HttpClientModule,LandingModule, AppRoutingModule,
         BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes, {
-    initialNavigation: 'enabled'
-}),
     ],
     declarations: [
         AppComponent,
-        HomeComponent
+        HomeComponent,
+        LoginComponent,
+        AccesskeySecretkeyComponent
     ],
     providers: [
         DataService
