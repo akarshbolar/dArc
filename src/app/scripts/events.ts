@@ -42,7 +42,19 @@ export class DiagramClientSideEvents implements OnInit, OnDestroy{
     }
 
     ngOnInit() {
-        this.subscription = this.data.currentMessage.subscribe(objectType => this.objectType = objectType)
+        this.subscription = this.data.currentMessage.subscribe(
+            objectType => {
+                window.alert("subscribe called");
+                this.objectType = objectType;
+                this.getObjectType();
+                this.insertToContainer();
+            });
+    }
+
+    getObjectType() {
+        //window.alert("Im being called "+this.objectId)
+        this.objectType = this.data.getObjectType();
+        
     }
 
     ngOnDestroy() {
@@ -53,6 +65,10 @@ export class DiagramClientSideEvents implements OnInit, OnDestroy{
         this.data.changeMessage(data)
       }
     public connectorSet = new Set();
+
+    public getconnectorSet(){
+        return this.connectorSet;
+    }
 
     
 
@@ -185,10 +201,23 @@ export class DiagramClientSideEvents implements OnInit, OnDestroy{
             this.selectedItem.utilityMethods.bindNodeProperties(object, this.selectedItem);
         } else if (selectedObject instanceof Connector) {
             window.alert("Connect singleSettings :"+selectedObject.sourceID+" Targer"+selectedObject.targetID+" region : ");
+            window.alert("before"+JSON.stringify(this.data.objectContainer));
+            this.data.updateConnectorDetails( selectedObject.sourceID, selectedObject.targetID)
+            this.data.objectType = "Connector"
+            this.data.changeMessage(selectedObject.id)
+            
+            this.data.insertToContainer();
+            //this.data.updateConnectorDetails(this.data);
+            // this.data.insertToContainer();
+            window.alert("after"+this.data.objectType);
             this.selectedItem.utilityMethods.objectTypeChange('connector');
+            
             object = selectedObject as Connector;
+          
             this.selectedItem.utilityMethods.bindConnectorProperties(object, this.selectedItem);
-            this.connectorSet.add(selectedObject);
+            
+           // this.connectorSet.add(selectedObject);
+            //window.alert("after"+this.connectorSet.size);
         }
         if (object.shape && object.shape.type === 'Text') {
             document.getElementById('textPropertyContainer').style.display = '';

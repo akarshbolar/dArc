@@ -144,6 +144,7 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     public dialogVisibility: boolean = false;
     public isModalDialog: boolean = false;
     public themesdialogPosition: PositionDataModel = { X: 'right', Y: 112 };
+    public connectorSet = new Set();
 
     public listViewFields: FieldsMapping = { isChecked: 'checked' };
 
@@ -188,10 +189,11 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     ngOnInit() {
         this.subscription = this.data.currentMessage.subscribe(objectId => 
             {
+                
             this.objectId = objectId;
             this.getObjectType();
             this.insertToContainer();
-        })
+            })
     }
     
     ngOnDestroy() {
@@ -203,12 +205,13 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
       }
 
     getObjectType() {
-        // window.alert("Im being called "+this.objectId)
+        //window.alert("Im being called "+this.objectId)
         this.objectType = this.data.getObjectType();
         
     }
 
     insertToContainer() {
+       // window.alert("in home insert to container");
         this.currentObject = this.data.insertToContainer();
     }
 
@@ -257,6 +260,7 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
         return typeof val == 'string' }
 
         onChange(key,value,type) {
+
             if(type==1){
                 this.data.objectContainer[this.objectId][key].currValue = value;
                 this.currentObject[key].currValue = value;
@@ -339,24 +343,26 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     public getDiagramJson(args: MouseEvent) : void {
-        window.alert("Get diagram called");
+       // window.alert("Get diagram called");
         var elements = document.getElementsByTagName('rect');
         var output = "";
     
-        // window.alert(this.diagramEvents.connectorSet.size);
-        this.diagramEvents.connectorSet.forEach (function(connector : Connector) {
+        //window.alert(this.diagramEvents.getconnectorSet().size);
+        this.connectorSet = this.diagramEvents.getconnectorSet();
+        this.connectorSet.forEach (function(connector : Connector) {
+           // window.alert("In foreach of connector");
             output += "ID : "+connector.id+ " Source :"+ connector.sourceID+ "Dst : "+connector.targetID+"\n";
           })
         /*for(let i = 13 ;i<elements.length;i++){
             output = output+ "***" + elements[i].getAttribute("id");
         }*/
         
-        window.alert(output);
+       // window.alert(output);
     }
 
     public submitService(args: MouseEvent) {
-        this.router.navigate(['/login']);
-        window.alert(JSON.stringify(this.data.objectContainer));
+        //this.router.navigate(['/login']);
+        //window.alert(JSON.stringify(this.data.objectContainer));
     }
 
     public signOut(args: MouseEvent) {
@@ -585,7 +591,7 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     private btnMoreShapes(args: MouseEvent): void {
         let listSelectedItem: SelectedCollection = this.moreShapesList.getSelectedItems() as SelectedCollection;
         if (listSelectedItem.text.length > 0) {
-            window.alert("In btmMoreSHapes");
+            //window.alert("In btmMoreSHapes");
             this.symbolpalette.palettes = this.palettes.getPalettes(listSelectedItem.text as string[]);
             this.moreShapesDialog.hide();
         }
