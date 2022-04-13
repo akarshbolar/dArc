@@ -35,6 +35,7 @@ import { DiagramClientSideEvents, DiagramPropertyBinding, MindMapPropertyBinding
 import { Palettes } from '../scripts/palettes';
 import { MindMap, MindMapUtilityMethods } from '../scripts/mindmap';
 import { ListViewComponent, FieldsMapping, SelectedCollection, SelectEventArgs } from '@syncfusion/ej2-angular-lists';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { DataService } from "../data.service";
 import { Subscription } from 'rxjs';
@@ -147,6 +148,11 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     public connectorSet = new Set();
 
     public listViewFields: FieldsMapping = { isChecked: 'checked' };
+    selectedFiles: File[];
+    file: File = null;
+    fileIndex  = 0;
+    fileName: string;
+    formData = new FormData();
 
     /* Dialog Members End */
 
@@ -184,7 +190,7 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     subscription: Subscription;
     serviceIDMap = new Map<string, Map<string,string>>();
 
-    constructor(private data: DataService, private router: Router) { }
+    constructor(private data: DataService, private router: Router, private http:HttpClient) { }
 
     ngOnInit() {
         this.subscription = this.data.currentMessage.subscribe(objectId => 
@@ -209,6 +215,42 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
         this.objectType = this.data.getObjectType();
         
     }
+
+    isFileUpload(val): boolean {
+        // window.alert(val); }
+ 
+        return  val == 'fileUpload' }
+ 
+        onUpload():void{
+         //window.alert("In on upload ")
+         let upload = this.http.post("http://localhost:4200", this.formData);
+ 
+         upload.subscribe(resp => {
+             alert("Uploaded")
+           });
+     }
+ 
+     handleFileInput(files:FileList){
+ 
+         //window.alert("In file Upload");
+         console.log(files)
+         this.file = files[0];
+         if (this.file) {
+ 
+             this.fileName = this.file.name;
+ 
+ 
+ 
+             this.formData.append("file"+this.fileIndex, this.file, this.fileName);
+ 
+ 
+ 
+ 
+         }
+         ++this.fileIndex;
+ 
+        // window.alert("After In file Upload"+" index: "+this.fileIndex);
+     }
 
     insertToContainer() {
        // window.alert("in home insert to container");
@@ -362,7 +404,7 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
 
     public submitService(args: MouseEvent) {
         //this.router.navigate(['/login']);
-        //window.alert(JSON.stringify(this.data.objectContainer));
+        window.alert(JSON.stringify(this.data.objectContainer));
     }
 
     public signOut(args: MouseEvent) {

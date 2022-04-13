@@ -200,8 +200,8 @@ export class DiagramClientSideEvents implements OnInit, OnDestroy{
             object = selectedObject as Node;
             this.selectedItem.utilityMethods.bindNodeProperties(object, this.selectedItem);
         } else if (selectedObject instanceof Connector) {
-            window.alert("Connect singleSettings :"+selectedObject.sourceID+" Targer"+selectedObject.targetID+" region : ");
-            window.alert("before"+JSON.stringify(this.data.objectContainer));
+           // window.alert("Connect singleSettings :"+selectedObject.sourceID+" Targer"+selectedObject.targetID+" region : ");
+            //window.alert("before"+JSON.stringify(this.data.objectContainer));
             this.data.updateConnectorDetails( selectedObject.sourceID, selectedObject.targetID)
             this.data.objectType = "Connector"
             this.data.changeMessage(selectedObject.id)
@@ -209,7 +209,7 @@ export class DiagramClientSideEvents implements OnInit, OnDestroy{
             this.data.insertToContainer();
             //this.data.updateConnectorDetails(this.data);
             // this.data.insertToContainer();
-            window.alert("after"+this.data.objectType);
+           // window.alert("after"+this.data.objectType);
             this.selectedItem.utilityMethods.objectTypeChange('connector');
             
             object = selectedObject as Connector;

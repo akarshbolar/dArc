@@ -27,21 +27,23 @@ export class DataService {
     public currentObject;
 
     public EC2 = {
-        "region":{"currValue":"us-east1","dropdown":["us-east1","us-east2"]},
+        "Region":{"currValue":"us-east1","dropdown":["us-east1","us-east2"]},
         "OS":{"currValue":"windows","dropdown":["ubuntu","windows","amazon-linux"]},
-        "EC2Name":"",
-        "instanceType":{"currValue":"t2-nano","dropdown":["t2-micro","t2-nano"]}
+        "EC2 Name":"",
+        "Instance Type":{"currValue":"t2-nano","dropdown":["t2-micro","t2-nano"]}
     };
 
     public S3 = {
-        "bucketName":"",
-        "region":{"currValue":"us-east1","dropdown":["us-east1","us-east2"]},
-        "filePath":""
+        "Bucket Name":"",
+        "Region":{"currValue":"us-east1","dropdown":["us-east1","us-east2"]},
+        "fileUpload" : "Upload Files to S3"
     }
 
+
+
     public Connector = {
-      "sourceID":"",
-      "targetID":""
+      "Source":"",
+      "Target":""
     };
 
   constructor() {
@@ -53,7 +55,7 @@ export class DataService {
     
     this.sourceID.next( sourceID)
     this.targetID.next(targetID)
-    window.alert("Update details"+this.connectorID.getValue());
+   // window.alert("Update details"+this.connectorID.getValue());
   }
 
   changeMessage(message: string) {
@@ -61,7 +63,7 @@ export class DataService {
   }
 
   getObjectType() {
-    window.alert("getObject Type called"+this.messageSource.getValue());
+    //window.alert("getObject Type called"+this.messageSource.getValue());
     if(this.messageSource.getValue().includes("EC2")){
         this.objectType = "EC2";
     }
@@ -86,7 +88,7 @@ export class DataService {
   }
 
   insertToContainer() {
-    window.alert("insert to container called"+this.objectType+ "msgSource : "+this.sourceID.getValue());
+    //window.alert("insert to container called"+this.objectType+ "msgSource : "+this.sourceID.getValue());
       if(!(this.messageSource.getValue() in this.objectContainer)){
         console.log(this.messageSource.getValue())
           if(this.objectType=="EC2"){
@@ -99,12 +101,12 @@ export class DataService {
             // this.objectContainer[this.messageSource.getValue()]=JSON.parse(JSON.stringify(this.S3))
             this.objectContainer[this.messageSource.getValue()]=_.cloneDeep(this.S3)
           }else if(this.objectType == "Connector"){
-            window.alert("Object Type "+JSON.stringify(this.objectContainer));
+        //    window.alert("Object Type "+JSON.stringify(this.objectContainer));
             this.objectContainer[this.messageSource.getValue()]=_.cloneDeep(this.Connector)
-            this.objectContainer[this.messageSource.getValue()]["sourceID"] =  this.sourceID.getValue()
-            this.objectContainer[this.messageSource.getValue()]["targetID"] =  this.targetID.getValue()
+            this.objectContainer[this.messageSource.getValue()]["Source"] =  this.sourceID.getValue()
+            this.objectContainer[this.messageSource.getValue()]["Target"] =  this.targetID.getValue()
             
-            window.alert("Object Type "+JSON.stringify(this.objectContainer));
+      //      window.alert("Object Type "+JSON.stringify(this.objectContainer));
           }
       }
         this.currentObject = this.objectContainer[this.messageSource.getValue()];

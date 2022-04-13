@@ -238,7 +238,7 @@ export class Palettes {
 
     public getPalettes(text: string[]): PaletteModel[] {
         let palettes: PaletteModel[] = [];
-        window.alert("In alert");
+       // window.alert("In alert");
         if (text.indexOf('AWS') !== -1) {
             palettes.push({ id: 'aws', expanded: false, symbols: this.getFlowShapes(), title: 'AWS Shapes' });
         }

@@ -39,6 +39,7 @@
           (click)="renameDiagram($event)"
           >Untitled Diagram</span
         >
+       <!---
         <span
           id="getJSON"
           style="
@@ -51,6 +52,7 @@
           (click)="getDiagramJson($event)"
           >Get Diagram JSON</span
         >
+      --> 
         <span
           id="submitService"
           style="
@@ -538,7 +540,7 @@
             class="db-node-prop-container"
             style="display: hidden"
           >
-            <div class="db-node-behaviour-prop">
+            <div *ngFor="let item of currentObject | keyvalue">
               <!-- <ejs-dropdownlist id='awsregion' [dataSource]='dropDownDataSources.awsRegions' placeholder = 'Select Region' [(value)]="selectedItem.nodeProperties.region"></ejs-dropdownlist> -->
 
               <!---<ejs-dropdownlist id='ec2AMI' [dataSource]='dropDownDataSources.ec2AMI' placeholder = 'Select Region' [(value)]="selectedItem.nodeProperties.region"></ejs-dropdownlist>
@@ -546,7 +548,6 @@
                             <ejs-dropdownlist id='ec2InstanceType' [dataSource]='dropDownDataSources.ec2InstanceType' placeholder = 'Select Region' [(value)]="selectedItem.nodeProperties.region"></ejs-dropdownlist>--->
 
               <!-- <p>Test- {{objectId}} and  {{objectType}}</p> -->
-              <div *ngFor="let item of currentObject | keyvalue">
                 <div *ngIf="isString(item.value)">
                   <b>{{ item.key }}</b>
                   <input
@@ -556,10 +557,17 @@
                     (change)="onChange(item.key, $event.target.value, 0)"
                     placeholder="{{ item.value }}"
                     class="selectpicker form-control border-0 mb-1 px-4 py-4 rounded shadow"
-                  /><br />
+                  />
                 </div>
-                <br />
-                <div *ngIf="!isString(item.value)">
+                <div *ngIf='isFileUpload(item.key) '>
+                  <b>{{item.value}}</b> <br>
+                  <input type="file" multiple  class="form-control" (change)="handleFileInput($event.target.files)">
+                  <button (click)="onUpload()" 
+class="btn btn-success">
+Upload
+</button>
+              </div>
+                <div *ngIf="!isString(item.value) && !isFileUpload(item.key)">
                   <b>{{ item.key }}</b> <br />
                   <select (change)="onChange(item.key, $event.target.value, 1)" class="selectpicker form-control border-0 mb-1 px-4 py-4 rounded shadow">
                     <option
@@ -570,206 +578,6 @@
                     </option>
                   </select>
                 </div>
-              </div>
-              
-                
-              <!---<div class="db-node-behaviour-prop">
-                            <div class="row db-prop-header-text">
-                                Region
-                            </div>
-                            <div class="row db-prop-row">
-                                <div class="col-xs-6 db-col-left">
-                                    <div class="db-text-container">
-                                      
-                            <ejs-dropdownlist id='awsregion' [dataSource]='dropDownDataSources.awsRegions' placeholder = 'Select Region' [(value)]="selectedItem.nodeProperties.region"></ejs-dropdownlist>
-                                        <div class="db-text">
-                                            <span>Region</span>
-                                        </div>
-                                        Right dimensions
-                                        <div class="db-text-input">
-                                            <ejs-numerictextbox id="nodeRegion" format="n0" [(value)]="selectedItem.nodeProperties.region"></ejs-numerictextbox>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 db-col-right">
-                                    <div class="db-text-container">
-                                        <div class="db-text">
-                                            <span>Y</span>
-                                        </div>
-                                        <div class="db-text-input">
-                                            <ejs-numerictextbox id="nodeOffsetY" format="n0" [(value)]="selectedItem.nodeProperties.offsetY"></ejs-numerictextbox>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row db-prop-row">
-                                <div class="col-xs-6 db-col-left">
-                                    <div class="db-text-container">
-                                        <div class="db-text">
-                                            <span>W</span>
-                                        </div>
-                                        <div class="db-text-input">
-                                            <ejs-numerictextbox id="nodeWidth" min="1" format="n0" [(value)]="selectedItem.nodeProperties.width"></ejs-numerictextbox>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 db-col-right">
-                                    <div class="db-text-container">
-                                        <div class="db-text">
-                                            <span>H</span>
-                                        </div>
-                                        <div class="db-text-input">
-                                            <ejs-numerictextbox id="nodeHeight" min="1" format="n0" [(value)]="selectedItem.nodeProperties.height"></ejs-numerictextbox>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row db-prop-row">
-                                <div class="col-xs-6 db-col-left">
-                                    <ejs-checkbox id='aspectRatio' label="Aspect Ratio" [(checked)]="selectedItem.nodeProperties.aspectRatio"></ejs-checkbox>
-                                </div>
-                            </div>
-                            <div class="row db-prop-row">
-                                <div class="col-xs-6 db-col-left">
-                                    <span class="db-prop-text-style">Rotate</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-6 db-col-left">
-                                    <div class="db-text-container">
-                                        <div class="db-text">
-                                            <button ejs-button iconCss='sf-icon-Rotate1 tb-icons'>
-                                            </button>
-                                        </div>
-                                        <div class="db-text-input">
-                                            <ejs-numerictextbox id="nodeRotateAngle" format="n0" [(value)]="selectedItem.nodeProperties.rotateAngle"></ejs-numerictextbox>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="db-prop-separator">
-                            </div>
-                            <div class="row db-prop-header-text">
-                                Insert
-                            </div>
-                            <div class="row db-prop-row">
-                                <div class="col-xs-6 db-col-left">
-                                    <ejs-toolbar id='toolbarNodeInsert' (clicked)='toolbarInsertClick($event)' overflowMode='Scrollable' #toolbarEditor>
-                                        <e-items>
-                                            <e-item prefixIcon="sf-icon-InsertLink tb-icons" tooltipText="Insert Link" cssClass="tb-item-start">
-                                            </e-item>
-                                            <e-item prefixIcon="sf-icon-InsertImage tb-icons" tooltipText="Insert Image" cssClass="tb-item-end">
-                                            </e-item>
-                                        </e-items>
-                                    </ejs-toolbar>
-                                </div>
-                            </div>
-                            <div class="db-prop-separator">
-                            </div>
-                        </div>
-                   
-                        <div id='nodeStyleProperties' class="db-node-style-prop">
-                            <div class="row db-background-style">
-                                <div class="row db-prop-header-text">
-                                    Background and Border Styles
-                                </div>
-                                <div class="row db-prop-row">
-                                    <div class="col-xs-6 db-col-left">
-                                        <div class="db-color-container">
-                                            <div class="db-color-input">
-                                                <input id="nodeFillColor" ejs-colorpicker type="color" mode="Palette" [(value)]="selectedItem.nodeProperties.fillColor" />
-                                            </div>
-                                            <div class="db-color-btn">
-                                                <button ejs-button iconCss='sf-icon-ColorPickers tb-icons'>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id='gradientStyle' class="row db-prop-row db-gradient-style-hide">
-                                    <div class="col-xs-4 db-col-left">
-                                        <ejs-checkbox id='gradient' label="Gradient" [(checked)]="selectedItem.nodeProperties.gradient"></ejs-checkbox>
-                                    </div>
-                                    <div class="col-xs-4 db-col-center">
-                                        <ejs-dropdownlist [(value)]='selectedItem.nodeProperties.gradientDirection' [dataSource]='dropDownDataSources.gradientDirections'
-                                            [fields]='dropdownListFields' popupWidth='200px'>
-                                        </ejs-dropdownlist>
-                                    </div>
-                                    <div class="col-xs-4 db-col-right">
-                                        <div class="db-color-container">
-                                            <div class="db-color-input">
-                                                <input id="nodeGradientColor" ejs-colorpicker type="color" mode="Palette" [(value)]="selectedItem.nodeProperties.gradientColor"
-                                                />
-                                            </div>
-                                            <div class="db-color-btn">
-                                                <button ejs-button iconCss='sf-icon-ColorPickers tb-icons'>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row db-border-style">
-                                <div class="row db-prop-header-text db-border-style-header">
-                                    Border/Line Styles
-                                </div>
-                                <div class="row db-prop-row">
-                                    <div class="col-xs-4 db-col-right">
-                                        <span class="db-prop-text-style">Stroke Color</span>
-                                    </div>
-                                    <div class="col-xs-4 db-col-center">
-                                        <span class="db-prop-text-style">Stroke Style</span>
-                                    </div>
-                                    <div class="col-xs-4 db-col-left">
-                                        <span class="db-prop-text-style">Stroke Width</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-4 db-col-left">
-                                        <div class="db-color-container">
-                                            <div class="db-color-input">
-                                                <input id="nodeStrokeColor" ejs-colorpicker type="color" mode="Palette" [(value)]="selectedItem.nodeProperties.strokeColor"
-                                                />
-                                            </div>
-                                            <div class="db-color-btn">
-                                                <button ejs-button iconCss='sf-icon-Pickers tb-icons'>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-4 db-col-center">
-                                        <ejs-dropdownlist id="nodeBorderStyle" #borderStyle [(value)]='selectedItem.nodeProperties.strokeStyle' [dataSource]='dropDownDataSources.borderStyles'
-                                            popupWidth='160px' [fields]='dropdownListFields'>
-                                            <ng-template #itemTemplate let-data>
-                                                <div class="db-ddl-template-style">
-                                                    <span class={{data.className}}></span>
-                                                </div>
-                                            </ng-template>
-                                            <ng-template #valueTemplate let-data>
-                                                <div class="db-ddl-template-style">
-                                                    <span class={{data.className}}></span>
-                                                </div>
-                                            </ng-template>
-                                        </ejs-dropdownlist>
-                                    </div>
-                                    <div class="col-xs-4 db-col-right">
-                                        <ejs-numerictextbox id="nodeStrokeWidth" min="0" step="0.5" [(value)]="selectedItem.nodeProperties.strokeWidth"></ejs-numerictextbox>
-                                    </div>
-                                </div>
-                                <div class="row db-prop-row">
-                                    <div class="col-xs-2 db-col-right db-prop-text-style" style="padding-top: 6px">
-                                        <span class="db-prop-text-style">Opacity</span>
-                                    </div>
-                                    <div class="col-xs-8 db-col-left" style="padding-right:10px">
-                                        <ejs-slider [(value)]='selectedItem.nodeProperties.opacity' min='0' max='100' step='10' type='MinRange'>
-                                        </ejs-slider>
-                                    </div>
-                                    <div class="col-xs-2 db-col-right">
-                                        <input type="text" [value]='selectedItem.nodeProperties.opacityText' readOnly="true" class="db-readonly-input" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>--->
             </div>
             <div
               id="connectorPropertyContainer"

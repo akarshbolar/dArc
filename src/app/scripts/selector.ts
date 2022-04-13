@@ -24,7 +24,7 @@ export class NodeProperties {
     public set region(region: string) {
         if (this.m_region !== region) {
             this.m_region = region;
-            window.alert("in region change");
+            //window.alert("in region change");
             this.triggerPropertyChange('region', region);
         }
     }
