@@ -54,7 +54,7 @@ export class Palettes {
             { id:'ECR', shape: { type: 'Image', source: ' https://img.stackshare.io/service/9251/default_646bca6126ebc8024fdd8921ec54a8a1ba3c510c.png' },style: { strokeWidth: 2 }},
             { id:'VPC', shape: { type: 'Image', source: ' https://www.shareicon.net/data/512x512/2015/08/28/92200_copy_512x512.png' },style: { strokeWidth: 2 }},
             { id:'Lambda', shape: { type: 'Image', source: ' https://pngset.com/images/aws-lambda-icon-text-symbol-alphabet-number-transparent-png-662520.png' },style: { strokeWidth: 2 }},
-            { id:'DynamoDB', shape: { type: 'Image', source: ' https://pngset.com/images/aws-lambda-icon-text-symbol-alphabet-number-transparent-png-662520.png' },style: { strokeWidth: 2 }}
+            { id:'DynamoDB', shape: { type: 'Image', source: ' https://upload.wikimedia.org/wikipedia/commons/f/fd/DynamoDB.png' },style: { strokeWidth: 2 }}
      
  
         ]
