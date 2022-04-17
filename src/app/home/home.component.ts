@@ -39,7 +39,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { DataService } from "../data.service";
 import { Subscription } from 'rxjs';
+import {Observable} from 'rxjs/Rx'; 
 import { Router } from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
 
 Diagram.Inject(UndoRedo, DiagramContextMenu, Snapping, DataBinding);
 Diagram.Inject(PrintAndExport, BpmnDiagrams, HierarchicalTree, MindMapTree, ConnectorBridging, LayoutAnimation);
@@ -153,6 +155,7 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     fileIndex  = 0;
     fileName: string;
     formData = new FormData();
+    
 
     /* Dialog Members End */
 
@@ -222,38 +225,25 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
         return  val == 'fileUpload' }
  
         onUpload():void{
-         //window.alert("In on upload ")
-         let upload = this.http.post("http://localhost:4200", this.formData);
- 
-         upload.subscribe(resp => {
-             alert("Uploaded")
-           });
+                this.sendPostRequest("http://10.0.0.115:5000/fileUpload",this.formData).subscribe(
+            res => {
+              console.log(res);
+            });
+        
+            
+        console.log("here--- "+this.formData);
      }
  
      handleFileInput(files:FileList){
- 
-         //window.alert("In file Upload");
-         console.log(files)
-         this.file = files[0];
-         if (this.file) {
- 
-             this.fileName = this.file.name;
- 
- 
- 
-             this.formData.append("file"+this.fileIndex, this.file, this.fileName);
- 
- 
- 
- 
+        //  console.log(files)
+    for (var i = 0; i < files.length; i++) {
+            console.log(files[i]);
+            this.fileName = files[i].name; 
+            this.formData.append("file"+i, files[i], this.fileName);
          }
-         ++this.fileIndex;
- 
-        // window.alert("After In file Upload"+" index: "+this.fileIndex);
      }
 
     insertToContainer() {
-       // window.alert("in home insert to container");
         this.currentObject = this.data.insertToContainer();
     }
 
@@ -402,9 +392,24 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
        // window.alert(output);
     }
 
+    public sendPostRequest(path,data: any): Observable<any> {
+        const headers = new HttpHeaders({
+            'Access-Control-Allow-Origin': '*'
+          });
+        return this.http.post<any>(path, data);
+   }
+
+   
+
     public submitService(args: MouseEvent) {
         //this.router.navigate(['/login']);
         window.alert(JSON.stringify(this.data.objectContainer));
+        this.sendPostRequest("http://10.0.0.115:5000/data",this.data.objectContainer).subscribe(
+            res => {
+              console.log(res);
+            }
+      );
+
     }
 
     public signOut(args: MouseEvent) {

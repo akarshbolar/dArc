@@ -27,7 +27,7 @@
   <div class="header navbar">
     <div class="db-header-container">
       <div class="db-diagram-name-container">
-        <span
+        <!-- <span
           id="diagramName"
           style="
             width: 250px;
@@ -38,7 +38,7 @@
           class="db-diagram-name"
           (click)="renameDiagram($event)"
           >Untitled Diagram</span
-        >
+        > -->
        <!---
         <span
           id="getJSON"
@@ -56,8 +56,9 @@
         <span
           id="submitService"
           style="
-            width: 250px;
+            width: 100%;
             overflow: hidden;
+            text-align:right;
             text-overflow: ellipsis;
             white-space: nowrap;
           "
@@ -66,7 +67,7 @@
           >Submit Service</span
         >
 
-        <span
+        <!-- <span
           id="signOut"
           style="
             width: 250px;
@@ -77,7 +78,7 @@
           class="db-diagram-name"
           (click)="signOut($event)"
           >Sign Out</span
-        >
+        > -->
 
 
         <input
@@ -569,11 +570,9 @@ Upload
               </div>
                 <div *ngIf="!isString(item.value) && !isFileUpload(item.key)">
                   <b>{{ item.key }}</b> <br />
-                  <select (change)="onChange(item.key, $event.target.value, 1)" class="selectpicker form-control border-0 mb-1 px-4 py-4 rounded shadow">
-                    <option
-                      *ngFor="let number of item.value.dropdown"
-                      [selected]="item.value.currValue == number"
-                    >
+                  <select (change)="onChange(item.key, $event.target.value, 1)" class="selectpicker border-0  px-4 py-4 rounded shadow">
+                    <option *ngFor="let number of item.value.dropdown"
+                      [selected]="item.value.currValue == number">
                       {{ number }}
                     </option>
                   </select>
