@@ -42,6 +42,7 @@ import { Subscription } from 'rxjs';
 import {Observable} from 'rxjs/Rx'; 
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
+import Swal from 'node_modules/sweetalert2/src/sweetalert2.js';
 
 Diagram.Inject(UndoRedo, DiagramContextMenu, Snapping, DataBinding);
 Diagram.Inject(PrintAndExport, BpmnDiagrams, HierarchicalTree, MindMapTree, ConnectorBridging, LayoutAnimation);
@@ -220,7 +221,7 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     isFileUpload(val): boolean {
-        // window.alert(val); }
+     
  
         return  val == 'fileUpload' }
  
@@ -230,6 +231,7 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
               console.log(res);
             });
         
+            window.alert("File Uploaded Sucessfully!");
             
         console.log("here--- "+this.formData);
      }
@@ -399,11 +401,15 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
         return this.http.post<any>(path, data);
    }
 
-   
+   successAlertBox() {
+       window.alert("Success! Service Deployed Sucessfully!");
+    Swal.fire('Whooa!', 'Order has been proceeded!', 'success')
+}
 
     public submitService(args: MouseEvent) {
         //this.router.navigate(['/login']);
-        window.alert(JSON.stringify(this.data.objectContainer));
+        this.successAlertBox();
+        //window.alert(JSON.stringify(this.data.objectContainer));
         this.sendPostRequest("http://10.0.0.115:5000/data",this.data.objectContainer).subscribe(
             res => {
               console.log(res);

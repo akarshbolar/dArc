@@ -549,7 +549,16 @@
                             <ejs-dropdownlist id='ec2InstanceType' [dataSource]='dropDownDataSources.ec2InstanceType' placeholder = 'Select Region' [(value)]="selectedItem.nodeProperties.region"></ejs-dropdownlist>--->
 
               <!-- <p>Test- {{objectId}} and  {{objectType}}</p> -->
-                <div *ngIf="isString(item.value)">
+
+              <div *ngIf='isFileUpload(item.key) '>
+                <b>{{item.value}}</b> <br>
+                <input type="file" multiple  class="form-control" (change)="handleFileInput($event.target.files)">
+                <button (click)="onUpload()" 
+class="btn btn-success">
+Upload
+</button>
+            </div>
+                <div *ngIf="isString(item.value) && !isFileUpload(item.key)">
                   <b>{{ item.key }}</b>
                   <input
                     type="text"
@@ -560,15 +569,8 @@
                     class="selectpicker form-control border-0 mb-1 px-4 py-4 rounded shadow"
                   />
                 </div>
-                <div *ngIf='isFileUpload(item.key) '>
-                  <b>{{item.value}}</b> <br>
-                  <input type="file" multiple  class="form-control" (change)="handleFileInput($event.target.files)">
-                  <button (click)="onUpload()" 
-class="btn btn-success">
-Upload
-</button>
-              </div>
-                <div *ngIf="!isString(item.value) && !isFileUpload(item.key)">
+                
+                <div *ngIf="!isString(item.value)">
                   <b>{{ item.key }}</b> <br />
                   <select (change)="onChange(item.key, $event.target.value, 1)" class="selectpicker border-0  px-4 py-4 rounded shadow">
                     <option *ngFor="let number of item.value.dropdown"

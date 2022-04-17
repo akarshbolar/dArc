@@ -58,8 +58,8 @@ export class DataService {
     }
 
     public Connector = {
-      "Source":"",
-      "Target":""
+     // "Source":"",
+      //"Target":""
     };
 
   constructor() {
