@@ -40,6 +40,22 @@ export class DataService {
     }
 
 
+    public ECS ={
+      "Image to Pull from Docker Hub":{"currValue":"centOS","dropdown":["centOS","Alpine","Ubuntu","Windows"]},
+      "Storage Memory to Assign(MB)":"",
+      "Port Number":"",
+      "CPU Memory":""
+    }
+    
+    public CDN={
+
+    }
+
+    public Lambda={
+      "fileUpload" : "Upload Function File",
+      "Function Name":"",
+      "Runtime Environment" : {"currValue":"Python3.6","dropdown":["Python3.6","Java8","C++","Javascript"]},
+    }
 
     public Connector = {
       "Source":"",
@@ -70,6 +86,9 @@ export class DataService {
     else if(this.messageSource.getValue().includes("S3")){
         this.objectType  = "S3";
     }
+    else if(this.messageSource.getValue().includes("CDN")){
+      this.objectType  = "CDN";
+  }
     else if(this.messageSource.getValue().includes("ECR")){
         this.objectType  = "ECR";
     }
@@ -81,6 +100,11 @@ export class DataService {
     } else if(this.messageSource.getValue().includes("connector")){
       this.objectType = "Connector";
     }
+    else if(this.messageSource.getValue().includes("ECS")){
+      this.objectType  = "ECS";
+  }else if(this.messageSource.getValue().includes("Lambda")){
+    this.objectType  = "Lambda";
+  }
     else{
         this.objectType  = "DynamoDB";
     }
@@ -107,6 +131,14 @@ export class DataService {
             this.objectContainer[this.messageSource.getValue()]["Target"] =  this.targetID.getValue()
             
       //      window.alert("Object Type "+JSON.stringify(this.objectContainer));
+          }else if(this.objectType == "ECS"){
+            this.objectContainer[this.messageSource.getValue()]=_.cloneDeep(this.ECS)
+          }else if(this.objectType=="CDN"){
+            // this.objectContainer[this.messageSource.getValue()]={ ...this.S3};
+            // this.objectContainer[this.messageSource.getValue()]=JSON.parse(JSON.stringify(this.S3))
+            this.objectContainer[this.messageSource.getValue()]=_.cloneDeep(this.CDN)
+          }else if(this.objectType == "Lambda"){
+            this.objectContainer[this.messageSource.getValue()]=_.cloneDeep(this.Lambda)
           }
       }
         this.currentObject = this.objectContainer[this.messageSource.getValue()];
